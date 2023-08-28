@@ -24,6 +24,7 @@ class Game:
         self.screen.show_message(f"Your hand is [{self.screen.get_hands_printable(human, is_cpu_turn)}]")
         self.screen.show_message(f"Your score is {self.pc.calculate_score(human)} points.")
         self.screen.show_message(f"{computer.get_name()}'s hand is [{self.screen.get_hands_printable(computer, is_cpu_turn)}]")
+        self.screen.add_single_line()
         
     
     def __get_username(self):
