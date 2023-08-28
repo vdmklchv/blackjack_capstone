@@ -16,6 +16,7 @@ class Game:
     def __should_start_new_game(self):
         '''Greets user and returns user choice to start game or not'''
         start_game = self.screen.get_input("Do you want to play blackjack? Print y to start, anything else to stop: ")
+        self.screen.add_heavy_line()
 
         return start_game == "y"
     
@@ -81,7 +82,10 @@ class Game:
             computer_player.add_card(self.deck.deal_card())
 
             # show 1 card of cpu and both cards of Player
+            self.screen.add_heavy_line()
             self.screen.show_message(f"Your current score is {human_player.get_score()}")
+            self.screen.show_message(f"Computer score is {computer_player.get_score()}")
+            self.screen.add_heavy_line()
             self.__show_hands(human_player, computer_player, False)
             
 

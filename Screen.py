@@ -28,4 +28,10 @@ class Screen:
                 return ", ".join(result)
             else:
                 return player.get_hand()[0].get_card_as_string()
+    
+    def add_heavy_line(self):
+        self.show_message("=====================")
+
+    def add_single_line(self):
+        self.show_message("----")
 
