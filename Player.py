@@ -1,8 +1,9 @@
 class Player:
-    def __init__(self, name):
+    def __init__(self, name, type):
         self.__score = 0
         self.__name = name
         self.__hand = []
+        self.type = type
     
     def get_name(self):
         '''Returns name of player'''

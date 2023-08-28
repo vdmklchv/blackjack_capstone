@@ -1,7 +1,6 @@
 import screen as sc
 from deck import Deck
-from human import Human
-from computer import Computer
+from player import Player
 from processor import Processor
 from art import art
 
@@ -34,9 +33,9 @@ class Game:
     def __create_player(self, type, name = "Computer"):
         '''Creates player of chosen type. Available types are human and computer, other arguments will return None'''
         if (type == "human"):
-            return Human(name)
+            return Player(name, "Human")
         elif (type == "computer"):
-            return Computer()
+            return Player(name, "Computer")
         else:
             raise Exception("Unknown type")
         
@@ -60,7 +59,7 @@ class Game:
         self.screen.show_message(art)
         ## Create players
         user_name = self.__get_username()
-        
+
         try:
             human_player = self.__create_player('human', user_name)
             computer_player = self.__create_player('computer')

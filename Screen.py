@@ -1,6 +1,4 @@
-from computer import Computer
-from human import Human
-
+from player import Player
 
 class Screen:
     def __init__(self):
@@ -15,12 +13,12 @@ class Screen:
     
     def get_hands_printable(self, player, is_cpu_turn):
         '''Prints hand'''
-        if type(player) == Human:
+        if player.type == "Human":
             result = []
             for card in player.get_hand():
                 result.append(card.get_card_as_string())
             return ", ".join(result)
-        elif type(player) == Computer:
+        elif player.type == "Computer":
             if is_cpu_turn:
                 result = []
                 for card in player.get_hand():
