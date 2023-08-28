@@ -4,8 +4,7 @@ import card as cd
 class Deck:
     '''Class Deck provides deck functionality, such as create deck, shuffle etc.'''
 
-    def __init__(self, number_of_cards = 52):
-        self.__number_of_cards = number_of_cards
+    def __init__(self):
         self.__deck = self.__populate_deck()
 
     def __populate_deck(self):
@@ -16,11 +15,10 @@ class Deck:
 
         deck = []
 
-        for _ in range(0, self.__number_of_cards):
-            for value in __card_options:
-                for suit in __suit_options:
-                    card = cd.Card(value, suit)
-                    deck.append(card)
+        for value in __card_options:
+            for suit in __suit_options:
+                card = cd.Card(value, suit)
+                deck.append(card)
         
         return deck
     
@@ -39,7 +37,7 @@ class Deck:
     
     def is_deck_halfempty(self):
         '''Returns True if there are less than half of remaining cards'''
-        return len(self.__deck) < self.__number_of_cards / 2
+        return len(self.__deck) < len(self.__deck) / 2
         
     def __str__(self):
         '''Prints deck in format 4 Hearts, 5 Clubs etc.'''
