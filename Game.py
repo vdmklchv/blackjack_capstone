@@ -1,8 +1,8 @@
-import Screen as sc
-from Deck import Deck
-from Human import Human
-from Computer import Computer
-from Processor import Processor
+import screen as sc
+from deck import Deck
+from human import Human
+from computer import Computer
+from processor import Processor
 from art import art
 
 class Game:

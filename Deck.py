@@ -1,5 +1,5 @@
 import random
-import Card as cd
+import card as cd
 
 class Deck:
     '''Class Deck provides deck functionality, such as create deck, shuffle etc.'''

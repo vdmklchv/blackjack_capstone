@@ -1,5 +1,5 @@
-from Computer import Computer
-from Human import Human
+from computer import Computer
+from human import Human
 
 
 class Screen:
