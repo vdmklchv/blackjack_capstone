@@ -87,6 +87,20 @@ class Game:
             computer_player.add_card(self.deck.deal_card())
             computer_player.add_card(self.deck.deal_card())
 
+            # check if game is instantly won by any of parties
+            if self.pc.hand_is_blackjack(human_player):
+                self.__show_hands(human_player, computer_player, False)
+                self.screen.show_message("You have got BLACKJACK! YOU WIN BIG!!")
+                human_player.update_score()
+                is_game_on = self.__should_start_new_game()
+                continue
+            elif self.pc.hand_is_blackjack(computer_player):
+                self.__show_hands(human_player, computer_player, True)
+                self.screen.show_message("Computer has BLACKJACK! YOU LOSE!")
+                computer_player.update_score()
+                is_game_on = self.__should_start_new_game()
+                continue
+
             # show 1 card of cpu and both cards of Player
             self.screen.add_heavy_line()
             self.screen.show_message(f"Your current score is {human_player.get_score()}")

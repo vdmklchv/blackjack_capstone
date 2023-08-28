@@ -51,3 +51,7 @@ class Processor:
         '''Checks if player has more than 21'''
         return self.calculate_score(player) > 21
     
+    def hand_is_blackjack(self, player):
+        '''Checks if dealt hand is blackjack and returns true or false'''
+        score = self.calculate_score(player)
+        return score == 21
