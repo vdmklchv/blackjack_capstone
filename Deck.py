@@ -12,7 +12,7 @@ class Deck:
         '''Populate empty deck or repopulate used deck. Returns list of Card objects'''
 
         __card_options = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-        __suit_options = ["Hearts", "Diamonds", "Clubs", "Spades"]
+        __suit_options = ['♠', '♦', '♥', '♣']
 
         deck = []
 
