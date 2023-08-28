@@ -22,5 +22,8 @@ class Player:
         '''Adds card object to players hand'''
         self.__hand.append(card)
 
+    def clear_hand(self):
+        self.__hand = []
+
     
     

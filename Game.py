@@ -4,29 +4,29 @@ from Human import Human
 from Computer import Computer
 from Processor import Processor
 
-screen = sc.Screen()
-deck = Deck()
-pc = Processor()
-
 class Game:
+    deck = Deck()
+    screen = sc.Screen()
+    pc = Processor()    
+
     def __init__(self):
         pass
 
     def __should_start_new_game(self):
         '''Greets user and returns user choice to start game or not'''
-        start_game = screen.get_input("Do you want to play blackjack? Print y to start, anything else to stop: ")
+        start_game = self.screen.get_input("Do you want to play blackjack? Print y to start, anything else to stop: ")
 
         return start_game == "y"
     
     def __show_hands(self, human, computer, is_cpu_turn):
-        screen.show_message(f"{human.get_name()}'s hand is [{screen.get_hands_printable(human, is_cpu_turn)}]")
-        screen.show_message(f"Your hand is {pc.calculate_score(human)} points.")
-        screen.show_message(f"{computer.get_name()}'s hand is [{screen.get_hands_printable(computer, is_cpu_turn)}]")
+        self.screen.show_message(f"{human.get_name()}'s hand is [{self.screen.get_hands_printable(human, is_cpu_turn)}]")
+        self.screen.show_message(f"Your hand is {self.pc.calculate_score(human)} points.")
+        self.screen.show_message(f"{computer.get_name()}'s hand is [{self.screen.get_hands_printable(computer, is_cpu_turn)}]")
         
     
     def __get_username(self):
         '''Asks user name from user input'''
-        return screen.get_input("What is your name?")
+        return self.screen.get_input("What is your name?")
     
     def __create_player(self, type, name = "Computer"):
         '''Creates player of chosen type. Available types are human and computer, other arguments will return None'''
@@ -37,12 +37,12 @@ class Game:
         
     def __cpu_play(self, human_player, computer_player, is_cpu_turn = True):
         '''CPU moving (auto draw if less than 17). Stand if >= 17'''
-        while pc.calculate_score(computer_player) < 17:
-            screen.show_message("Computer takes a new card...")
-            computer_player.add_card(deck.deal_card())
+        while self.pc.calculate_score(computer_player) < 17:
+            self.screen.show_message("Computer takes a new card...")
+            computer_player.add_card(self.deck.deal_card())
             self.__show_hands(human_player, computer_player, is_cpu_turn)
-        screen.show_message("Computer stands.")
-        screen.show_message(f"Computer hand is {pc.calculate_score(computer_player)}")
+        self.screen.show_message("Computer stands.")
+        self.screen.show_message(f"Computer hand is {self.pc.calculate_score(computer_player)}")
 
 
     def play_game(self):
@@ -59,19 +59,27 @@ class Game:
 
         ## Main game logic
         while is_game_on:
-            screen.show_message("The Blackjack Game begins!")
+            # clear hands on each game
+            human_player.clear_hand()
+            computer_player.clear_hand()
+
+            self.screen.show_message("The Blackjack Game begins!")
+            if self.deck.is_deck_halfempty():
+                self.screen.show_message("Replenishing deck...")
+                self.deck = Deck()
+
             #shuffle deck
-            deck.shuffle()
+            self.deck.shuffle()
             # deal cards
           
-            human_player.add_card(deck.deal_card())
-            human_player.add_card(deck.deal_card())
+            human_player.add_card(self.deck.deal_card())
+            human_player.add_card(self.deck.deal_card())
 
-            computer_player.add_card(deck.deal_card())
-            computer_player.add_card(deck.deal_card())
+            computer_player.add_card(self.deck.deal_card())
+            computer_player.add_card(self.deck.deal_card())
 
             # show 1 card of cpu and both cards of Player
-            screen.show_message(f"Your current score is {human_player.get_score()}")
+            self.screen.show_message(f"Your current score is {human_player.get_score()}")
             self.__show_hands(human_player, computer_player, False)
             
 
@@ -80,11 +88,11 @@ class Game:
             human_is_bust = False
             cpu_is_bust = False
             while needs_card == "y":
-                if screen.get_input("Would you like another card? y for yes, any button for no: ") == "y":
-                    human_player.add_card(deck.deal_card())
+                if self.screen.get_input("Would you like another card? y for yes, any button for no: ") == "y":
+                    human_player.add_card(self.deck.deal_card())
                     self.__show_hands(human_player, computer_player, False)
-                    if pc.is_bust(human_player):
-                        screen.show_message(f"You bust! Your score is {pc.calculate_score(human_player)}")
+                    if self.pc.is_bust(human_player):
+                        self.screen.show_message(f"You bust! Your score is {self.pc.calculate_score(human_player)}")
                         computer_player.update_score()
                         human_is_bust = True
                         break
@@ -99,25 +107,22 @@ class Game:
 
                 if not cpu_is_bust:
                     # compare results
-                    winner = pc.get_winner(human_player, computer_player)
+                    winner = self.pc.get_winner(human_player, computer_player)
            
                     if winner == None:
-                        screen.show_message("It's a tie!")
+                        self.screen.show_message("It's a tie!")
                     else:
                         self.__show_hands(human_player, computer_player,True)
-                        screen.show_message(f"Computer hand is {pc.calculate_score(computer_player)}")
-                        screen.show_message(f"{winner.get_name()} wins!")
+                        self.screen.show_message(f"Computer hand is {self.pc.calculate_score(computer_player)}")
+                        self.screen.show_message(f"{winner.get_name()} wins!")
                         winner.update_score()
                 else:
-                    screen.show_message(f"Computer bust! His score is {pc.calculate_score(computer_player)}. You win!")
+                    self.screen.show_message(f"Computer bust! His score is {self.pc.calculate_score(computer_player)}. You win!")
                     human_player.update_score()
-            # show winner
-
-            # show score
 
             # ask if user wants to play again
             is_game_on = self.__should_start_new_game()
         
-        screen.show_message("Thanks for playing! Goodbye!")
+        self.screen.show_message("Thanks for playing! Goodbye!")
         
         
