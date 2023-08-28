@@ -21,8 +21,8 @@ class Game:
         return start_game == "y"
     
     def __show_hands(self, human, computer, is_cpu_turn):
-        self.screen.show_message(f"{human.get_name()}'s hand is [{self.screen.get_hands_printable(human, is_cpu_turn)}]")
-        self.screen.show_message(f"Your hand is {self.pc.calculate_score(human)} points.")
+        self.screen.show_message(f"Your hand is [{self.screen.get_hands_printable(human, is_cpu_turn)}]")
+        self.screen.show_message(f"Your score is {self.pc.calculate_score(human)} points.")
         self.screen.show_message(f"{computer.get_name()}'s hand is [{self.screen.get_hands_printable(computer, is_cpu_turn)}]")
         
     
