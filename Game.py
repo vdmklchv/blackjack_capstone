@@ -37,6 +37,8 @@ class Game:
             return Human(name)
         elif (type == "computer"):
             return Computer()
+        else:
+            raise Exception("Unknown type")
         
     def __cpu_play(self, human_player, computer_player, is_cpu_turn = True):
         '''CPU moving (auto draw if less than 17). Stand if >= 17. Returns True if bust and False if not bust'''
@@ -58,11 +60,14 @@ class Game:
         self.screen.show_message(art)
         ## Create players
         user_name = self.__get_username()
-        human_player = self.__create_player('human', user_name)
-        computer_player = self.__create_player('computer')
-
-        assert human_player is not None
-        assert computer_player is not None
+        
+        try:
+            human_player = self.__create_player('human', user_name)
+            computer_player = self.__create_player('computer')
+        except Exception as e:
+            self.screen.show_message(e)
+            self.screen.show_message("Game Aborted")
+            return
 
         is_game_on = self.__should_start_new_game()
 
