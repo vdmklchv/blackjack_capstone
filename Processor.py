@@ -1,6 +1,7 @@
 class Processor:
 
-    __score_system = {
+    def __init__(self):
+        self.__score_system = {
         "2": 2,
         "3": 3,
         "4": 4,
@@ -16,9 +17,6 @@ class Processor:
         "A": 11
     }
 
-    def __init__(self):
-        pass
-
 
     def calculate_score(self, player):
         hand = player.get_hand()
@@ -27,7 +25,7 @@ class Processor:
         for card in hand:
             if card.get_value() == "A":
                 has_ace = True
-            total += Processor.__score_system[card.get_value()]
+            total += self.__score_system[card.get_value()]
         
         if total > 21 and has_ace:
             total -=10
