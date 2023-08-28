@@ -3,6 +3,7 @@ from Deck import Deck
 from Human import Human
 from Computer import Computer
 from Processor import Processor
+from art import art
 
 class Game:
     deck = Deck()
@@ -47,6 +48,7 @@ class Game:
 
     def play_game(self):
         '''Function to start game, contains game logic'''
+        self.screen.show_message(art)
         ## Create players
         user_name = self.__get_username()
         human_player = self.__create_player('human', user_name)
