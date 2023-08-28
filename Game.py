@@ -39,13 +39,18 @@ class Game:
             return Computer()
         
     def __cpu_play(self, human_player, computer_player, is_cpu_turn = True):
-        '''CPU moving (auto draw if less than 17). Stand if >= 17'''
+        '''CPU moving (auto draw if less than 17). Stand if >= 17. Returns True if bust and False if not bust'''
         while self.pc.calculate_score(computer_player) < 17:
             self.screen.show_message("Computer takes a new card...")
             computer_player.add_card(self.deck.deal_card())
             self.__show_hands(human_player, computer_player, is_cpu_turn)
+            cpu_bust = self.pc.is_bust(computer_player)    
+            if cpu_bust:
+                return True
+            
         self.screen.show_message("Computer stands.")
         self.screen.show_message(f"Computer hand is {self.pc.calculate_score(computer_player)}")
+        return False
 
 
     def play_game(self):
@@ -93,7 +98,7 @@ class Game:
             # ask player to deal
             needs_card = "y"
             human_is_bust = False
-            cpu_is_bust = False
+            is_cpu_bust = False
             while needs_card == "y":
                 if self.screen.get_input("Would you like another card? y for yes, any button for no: ") == "y":
                     human_player.add_card(self.deck.deal_card())
@@ -110,9 +115,9 @@ class Game:
                 self.__show_hands(human_player, computer_player, False)
             
                 # create logic for cpu to auto play
-                self.__cpu_play(human_player, computer_player, True)
+                is_cpu_bust = self.__cpu_play(human_player, computer_player, True)
 
-                if not cpu_is_bust:
+                if not is_cpu_bust:
                     # compare results
                     winner = self.pc.get_winner(human_player, computer_player)
            
